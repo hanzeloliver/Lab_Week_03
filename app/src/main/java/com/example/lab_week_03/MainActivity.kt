@@ -6,7 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+// Interface untuk komunikasi antara ListFragment dan Activity
+interface CoffeeListener {
+    fun onSelected(id: Int)
+}
+
+class MainActivity : AppCompatActivity(), CoffeeListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -16,5 +21,12 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    // Dipanggil ketika user memilih salah satu kopi dari ListFragment
+    override fun onSelected(id: Int) {
+        val detailFragment = supportFragmentManager
+            .findFragmentById(R.id.fragment_detail) as DetailFragment
+        detailFragment.setCoffeeData(id)
     }
 }
