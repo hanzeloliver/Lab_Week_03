@@ -19,21 +19,26 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Pastikan id berikut ada di fragment_list.xml
+        // Tambahkan semua kopi (total 5 item sesuai assignment)
         val coffeeList = listOf(
             view.findViewById<View>(R.id.affogato),
             view.findViewById<View>(R.id.americano),
-            view.findViewById<View>(R.id.latte)
+            view.findViewById<View>(R.id.latte),
+            view.findViewById<View>(R.id.mocha),
+            view.findViewById<View>(R.id.cappuccino)
         )
 
+        // Pasang listener untuk setiap item kopi
         coffeeList.forEach { coffee ->
             coffee.setOnClickListener {
-                // Kirim paket argumen ke DetailFragment dengan key "coffeeId"
+                // Kirim id kopi yang dipilih ke DetailFragment
                 val bundle = Bundle().apply {
                     putInt("coffeeId", coffee.id)
                 }
-                // Gunakan action id yang ada di nav_graph.xml
-                findNavController().navigate(R.id.action_listFragment_to_detailFragment, bundle)
+                findNavController().navigate(
+                    R.id.action_listFragment_to_detailFragment,
+                    bundle
+                )
             }
         }
     }
